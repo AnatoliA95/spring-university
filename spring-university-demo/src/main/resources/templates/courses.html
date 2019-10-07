@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>University: DEMO</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/university/1-1-1/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS--> 
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/university/1-1-1/css/font.css">
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/university/1-1-1/vendor/swiper/css/swiper.css">
+    <!-- Theme stylesheet-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/university/1-1-1/css/style.default.css" id="theme-stylesheet">
+  </head>
+  <body>
+    <!-- header-->
+    <header class="header">
+      <!-- top bar-->
+      <div class="top-bar d-none d-md-block">
+        <div class="container">
+          <div class="row">       
+            <div class="col-md-6">
+              <p class="mb-0"> <i class="icon-placeholder"></i>33 New West Side, New Jersey, NJ, USA</p>
+            </div>
+            <div class="col-md-6 text-right">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item"><a href="mailto:info@university.com"><i class="icon-envelope"></i>info@university.com</a></li>
+                <li class="list-inline-item"><a href="#"><i class="icon-telephone"></i>123-456-789</a></li>
+                <li class="list-inline-item"><form th:action="@{/logout}" method="post">
+            		<input type="submit" value="Logout">
+            		</form></li>
+            	</ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- navbar-->
+      <nav class="navbar navbar-expand-lg">
+        <div class="container"><a href="/actuator/health" class="navbar-brand"><strong>University</strong><small>Smart education platform</small></a>
+          <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right mt-0"><span></span><span></span><span></span></button>
+          <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <div class="navbar-nav ml-auto">
+              <div class="nav-item"><a th:href="@{/}" class="nav-link">Home </a></div>
+              <div class="nav-item"><a th:href="@{/departments}" class="nav-link">Departments </a></div>
+              <div class="nav-item"><a th:href="@{/courses}" class="nav-link active">Courses <span class="sr-only">(current)</span></a></div>
+              <div class="nav-item"><a th:href="@{/teachers}" class="nav-link">Teachers </a></div>
+              <div class="nav-item"><a th:href="@{/students}" class="nav-link">Students </a></div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Hero Section-->
+    <section class="hero hero-page">
+      <div style="background: url(https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/courses-banner.jpg)" class="hero-banner">       </div>
+      <div class="container">
+        <h1><center>Courses</center></h1>
+      </div>
+    </section>
+    <table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Topic</th>
+					<th>Teacher</th>
+					
+					<th><div sec:authorize="hasRole('ROLE_STUDENT')">Register</div></th>
+				</tr>
+			</thead>
+			<tr th:each="tempCourse : ${courses}">
+				<td th:text="${tempCourse.topic}" />
+				<td th:text="${tempCourse.teacher.firstName + ' ' + tempCourse.teacher.lastName}"  />
+			<td><div sec:authorize="hasRole('ROLE_STUDENT')"><a	th:href="@{/registerToCourse(courseId=${tempCourse.id})}"
+					class="btn btn-info btn-sm ">Register</a></div></td>
+					</tr>
+	</table>
+	<h1><center>My courses
+	<div sec:authorize="hasRole('ROLE_TEACHER')"> <a th:href="@{/showFormForAdd}" class="btn btn-primary"> <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Add course</a>
+	</div></center></h1>
+	<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Topic</th>
+					<th>Teacher</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tr th:each="tempCourse : ${myCourses}">
+				<td th:text="${tempCourse.topic}" />
+				<td th:text="${tempCourse.teacher.firstName + ' ' + tempCourse.teacher.lastName}"  />
+				<td><div sec:authorize="hasRole('ROLE_TEACHER')">
+				<a
+					th:href="@{/deleteCourse(courseId=${tempCourse.id})}"
+					class="btn btn-danger btn-sm"
+					onclick="if (!(confirm('Are you sure you want to delete this course?'))) return false">Delete</a>
+				</div>
+				<div sec:authorize="hasRole('ROLE_STUDENT')">
+				<a
+					th:href="@{/unregisterFromCourse(courseId=${tempCourse.id})}"
+					class="btn btn-danger btn-sm"
+					onclick="if (!(confirm('Are you sure you want to unregister?'))) return false">Delete</a>
+				</div>
+				</td>
+					</tr>
+	</table>
+  </body>
+</html>

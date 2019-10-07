@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>University: DEMO</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/university/1-1-1/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS--> 
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/university/1-1-1/css/font.css">
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/university/1-1-1/vendor/swiper/css/swiper.css">
+    <!-- Theme stylesheet-->
+    <link rel="stylesheet" href="https://d19m59y37dris4.cloudfront.net/university/1-1-1/css/style.default.css" id="theme-stylesheet">
+  </head>
+  <body>
+    <!-- header-->
+    <header class="header">
+      <!-- top bar-->
+      <div class="top-bar d-none d-md-block">
+        <div class="container">
+          <div class="row">       
+            <div class="col-md-6">
+              <p class="mb-0"> <i class="icon-placeholder"></i>33 New West Side, New Jersey, NJ, USA</p>
+            </div>
+            <div class="col-md-6 text-right">
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item"><a href="mailto:info@university.com"><i class="icon-envelope"></i>info@university.com</a></li>
+                <li class="list-inline-item"><a href="#"><i class="icon-telephone"></i>123-456-789</a></li>
+              <li class="list-inline-item"><form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout">
+            </form></li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- navbar-->
+     <nav class="navbar navbar-expand-lg">
+        <div class="container"><a href="/actuator/health" class="navbar-brand"><strong>University</strong><small>Smart education platform</small></a>
+          <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right mt-0"><span></span><span></span><span></span></button>
+          <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <div class="navbar-nav ml-auto">
+              <div class="nav-item"><a th:href="@{/}" class="nav-link">Home <span class="sr-only">(current)</span></a></div>
+              <div class="nav-item"><a th:href="@{/departments}" class="nav-link active">Departments </a></div>
+              <div class="nav-item"><a th:href="@{/courses}" class="nav-link">Courses </a></div>
+              <div class="nav-item"><a th:href="@{/teachers}" class="nav-link">Teachers </a></div>
+              <div class="nav-item"><a th:href="@{/students}" class="nav-link">Students </a></div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Hero Section-->
+    <section class="hero hero-home">
+      <div class="swiper-container hero-slider">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div style="background: url(https://d19m59y37dris4.cloudfront.net/university/1-1-1/img/hero-img-2.jpeg);" class="hero-content has-overlay-dark">              <div class="container">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <h1>Add Department</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+    </section>
+     <form action="#" th:action="@{/saveDepartment}"
+			th:object="${department}" method="POST">
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}"> 
+			<input type="text"
+				th:field="*{name}" class="form-control"
+				placeholder="Enter name"> 
+			<input type="text"
+				th:field="*{budget}" class="form-control"
+				placeholder="Enter budget"> 
+			<button type="submit" class="btn btn-primary">Add</button>
+		</form>
+  </body>
+</html>

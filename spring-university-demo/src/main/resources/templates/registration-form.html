@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+<!-- Bootstrap CSS -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<title>Registration</title>
+</head>
+<body>
+	<form class="form-horizontal" action="#" th:action="@{/register/processRegistrationForm}"
+			th:object="${crmUser}" method="POST">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Register</legend>
+
+<!-- Select Basic -->
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">Select position</label>
+  <div class="col-md-4">
+    <select id="selectbasic" th:field="*{role}" name="selectbasic" class="form-control">
+      <option value="1">Student</option>
+       <option value="2">Teacher</option>
+    </select>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">First name</label>  
+  <div class="col-md-4">
+  <input type="text" th:field="*{firstName}" placeholder="Anatoli" class="form-control input-md" required="">
+  <p th:each="error : ${#fields.errors('firstName')}"
+          th:text="${error}">Validation error</p>  
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Last name</label>  
+  <div class="col-md-4">
+  <input type="text" th:field="*{lastName}" placeholder="Atanasov" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="textinput">Username</label>  
+  <div class="col-md-4">
+  <input type="text" th:field="*{userName}" placeholder="Enter your username" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="email">E-mail</label>  
+  <div class="col-md-4">
+  <p th:each="error : ${#fields.errors('email')}"
+          th:text="${error}"></p> 
+  <input type="text" th:field="*{email}" placeholder="atanasovap34@gmail.com" class="form-control input-md"  th:text="${error}" required="">
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="passwordinput">Password</label>
+  <div class="col-md-4">
+   <p th:each="error : ${#fields.errors('password')}"
+          th:text="${error}"></p> 
+    <input type="password" th:field="*{password}" placeholder="Enter your password" class="form-control input-md" required="">
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="passwordinput">Repeat password </label>
+  <div class="col-md-4">
+    <input type="password" th:field="*{matchingPassword}" placeholder="Repeat your password" class="form-control input-md" required="">
+    
+  </div>
+</div>
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <a th:href="@{/employees/processRegistrationForm}">
+    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Register</button>
+  </a>
+  </div>
+</div>
+
+</fieldset>
+</form>
+</body>
+</html>
